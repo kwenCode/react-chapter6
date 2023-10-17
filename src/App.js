@@ -5,7 +5,7 @@ import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
 import { useState, useRef } from "react"
 
-const mocTodo = [
+const mokTodo = [
   {
     id:0,
     isDone:false,
@@ -27,7 +27,7 @@ const mocTodo = [
 ]
 
 function App() {
-  const [todo, setTodo] = useState(mocTodo);
+  const [todo, setTodo] = useState(mokTodo);
   const idRef = useRef(3);
 
   const onCreate = (content) => {
@@ -40,11 +40,32 @@ function App() {
     setTodo([newItem, ...todo]);
     idRef.current += 1;
   }
+  
+  const onUpdate = (targetId) => {
+    setTodo(
+      todo.map(
+        (it) => {
+          if(it.id === targetId){
+            return {
+              ...it,
+              isDone: !it.isDone,
+            };
+          }else {
+            return it;
+          }
+        }
+      )
+    )
+  }
+
+  const onDelete = (targetId) =>{
+    setTodo(todo.filter((it)=> it.id !== targetId))
+  }
   return (
   <div className="App">
     <Header />
     <TodoEditor onCreate={onCreate}/>
-    <TodoList />
+    <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
   </div>
   )
 }
