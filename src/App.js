@@ -4,6 +4,7 @@ import Header from "./component/Header";
 import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
 //import TestComp from "./component/TestComp"
+//import { reducer } from './component/aa.js';
 import { useReducer, useRef } from "react"
 
 const mockTodo = [
@@ -79,8 +80,10 @@ function App() {
       targetId,
     });
   };
+
   return (
   <div className="App">
+    <reducer todo = {todo} dispatch = {dispatch} />
     <Header />
     <TodoEditor onCreate={onCreate}/>
     <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete}/>
