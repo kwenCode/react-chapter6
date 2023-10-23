@@ -5,7 +5,7 @@ import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
 //import TestComp from "./component/TestComp"
 //import { reducer } from './component/aa.js';
-import { useReducer, useRef } from "react"
+import { useCallback, useReducer, useRef } from "react"
 
 const mockTodo = [
   {
@@ -67,19 +67,19 @@ function App() {
     idRef.current += 1;
   }
   
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type:"UPDATE",
       targetId,
     });
-  }
+  }, []);
 
-  const onDelete = (targetId) =>{
+  const onDelete = useCallback((targetId) =>{
     dispatch({
       type:"DELETE",
       targetId,
     });
-  };
+  }, []);
 
   return (
   <div className="App">
